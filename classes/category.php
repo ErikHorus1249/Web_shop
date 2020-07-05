@@ -65,17 +65,24 @@
 			if(empty($catName)){
 				$alert = "<span class='success'>category name must be not empty</span>";
 				return $alert;
-			}else{
-				$query = "UPDATE tbl_category SET catName = '$catName' WHERE catId = '$id'";
-				$result = $this->db->update($query);
-				if($result){
-					$alert = "<span class='success'> Updtae category successfully</span>";
+			}else {
+				$queryT = "SELECT * FROM  tbl_category WHERE catName='$catName'";
+				$resultT = $this->db->insert($queryT);
+				if ($resultT != Null) {
+					$alert = "<span class='success'> Da ton tai </span>";
 					return $alert;
 				}else{
-					$alert = "<span class='error'> Update category not success</span>";
-					return $alert;
+					$query = "UPDATE tbl_category SET catName = '$catName' WHERE catId = '$id'";
+					$result = $this->db->update($query);
+					if($result){
+						$alert = "<span class='success'> Updtae category successfully</span>";
+						return $alert;
+					}else{
+						$alert = "<span class='error'> Update category not success</span>";
+						return $alert;
+					}
 				}
-			}
+		}
 		}
 
 		public function delete_category($id){
